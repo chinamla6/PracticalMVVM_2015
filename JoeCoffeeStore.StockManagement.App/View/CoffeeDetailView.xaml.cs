@@ -61,6 +61,14 @@ namespace JoeCoffeeStore.StockManagement.App.View
             this.Close();
         }
 
+        private void ChangeCoffeeButton_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedCoffee.CoffeeName = "Something really expensive";
+            SelectedCoffee.Price = 1000;
+        }
+
+        
+
         private void SaveCoffeeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

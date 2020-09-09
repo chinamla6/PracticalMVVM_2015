@@ -1,8 +1,10 @@
-﻿using JoeCoffeeStore.StockManagement.App.Services;
+﻿using JoeCoffeeStore.StockManagement.App.Extensions;
+using JoeCoffeeStore.StockManagement.App.Services;
 using JoeCoffeeStore.StockManagement.Model;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +25,7 @@ namespace JoeCoffeeStore.StockManagement.App.View
     public partial class CoffeeOverviewView : MetroWindow
     {
         private Coffee selectedCoffee;
-        private List<Coffee> coffees;
+        private ObservableCollection<Coffee> coffees;
 
         public CoffeeOverviewView()
         {
@@ -36,7 +38,7 @@ namespace JoeCoffeeStore.StockManagement.App.View
         {
             CoffeeDataService coffeeDataService = new CoffeeDataService();
             //CoffeeListView.ItemsSource = coffeeDataService.GetAllCoffees();
-            coffees = coffeeDataService.GetAllCoffees();
+            coffees = coffeeDataService.GetAllCoffees().ToObservableCollection();
             CoffeeListView.ItemsSource = coffees;
         }
 
@@ -70,7 +72,19 @@ namespace JoeCoffeeStore.StockManagement.App.View
 
         private void AddFakeCoffeeButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Coffee coffee = new Coffee()    
+            {
+                CoffeeId = 123,
+                CoffeeName="Test coffee",
+                Description="Simply the best coffee",
+                ImageId=1,
+                AmountInStock=1000,
+                InStock=true,
+                FirstAddedToStockDate=new DateTime(2020,9,8),
+                OriginCountry=Country.India,
+                Price=12
+            };
+            coffees.Add(coffee);
         }
     }
 }
